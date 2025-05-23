@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css";
+import {Link} from "react-router-dom"
 import { IoLocationOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
@@ -12,12 +13,12 @@ const Header = () => {
         <div className={classes.header_container}>
           <div className={classes.logo_container}>
             {/* logo */}
-            <a href="/">
+            <Link to="/">
               <img
                 src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
                 alt="Amazon logo"
               />
-            </a>
+            </Link>
 
             {/* delivery */}
             <div className={classes.delivery}>
@@ -40,7 +41,7 @@ const Header = () => {
           </div>
           {/* order section  */}
           <div className={classes.order_container}>
-            <a href="#" className={classes.language}>
+            <Link to="#" className={classes.language}>
               {" "}
               {/* right side link */}
               <img
@@ -50,25 +51,25 @@ const Header = () => {
               <select name="" id="">
                 <option value="">EN</option>
               </select>
-            </a>
+            </Link>
 
-            <a href="#">
+            <Link to="/auth">
               {" "}
               <p> Sign in</p>
               <span>
                 <option value="">Account & Lists</option>
               </span>
-            </a>
+            </Link>
 
             {/* orders */}
-            <a href="">
+            <Link to="/orders">
               <p>Returns</p>
               <span>& Orders</span>
-            </a>
-            <a href="#" className={classes.cart}>
+            </Link>
+            <Link to="./cart" className={classes.cart}>
               <BsCart3 size={35} />
               <span>0</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
