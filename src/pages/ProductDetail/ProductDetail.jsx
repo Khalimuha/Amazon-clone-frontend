@@ -10,25 +10,30 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
     axios
       .get(`${productUrl}/${productId}`)
       .then((res) => {
         setProduct(res.data);
+       
         setError(null);
       })
       .catch((err) => {
         console.error(err);
-        setError("Failed to load product");
+      
       });
   }, [productId]);
-
+console.log(product);
   return (
     <LayOut>
+      
       {error && <p style={{ color: "red" }}>{error}</p>}
       {product ? (
-        <ProductCard product={product} />
+        <ProductCard product={product}
+        flex={true} 
+          renderDesc = {true}
+        />
       ) : (
         <p>Loading product details...</p>
       )}

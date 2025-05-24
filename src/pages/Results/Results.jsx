@@ -6,16 +6,21 @@ import axios from "axios"
 import { productUrl} from '../../Api/endPoints';
 import ProductCard from './../../Components/Product/ProductCard';
 
+
 const Results = () => {
   const {categoryName}= useParams() 
   const [Results, setResults] = useState([])
+  
   useEffect(()=>{
+
     axios.get(`${productUrl}/category/${categoryName}`)
     .then((res)=>{
       setResults(res.data)
+    
       console.log(res.data);
     }).catch((err)=>{
       console.log(err);
+      
     }) 
   
 
@@ -27,11 +32,15 @@ const Results = () => {
          <br />
          <p style={{ padding: "30px" }}>Category/{categoryName}</p>
          <br/>
-         <div className={classes.products_conatiner}>
+ <div className={classes.products_conatiner}>
           {Results?.map((product)=>(
-            <ProductCard key={product.id} product={product}/>
+            <ProductCard key={product.id}
+             renderAdd ={true} 
+             product={product}
+             />
           ))}
          </div>
+ 
 
        </section>
 
