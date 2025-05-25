@@ -1,45 +1,52 @@
 
+
 import React, { useEffect, useState } from "react";
 import LayOut from "./../../Components/LayOut/LayOut";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { productUrl } from "../../Api/endPoints";
 import ProductCard from "../../Components/Product/ProductCard";
+import Loader from "../../Components/Loader/Loader";
 
 const ProductDetail = () => {
   const { productId } = useParams();
+  const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
-  const [error, setError] = useState(null);
-  
+  const [error, setError] = useState(null); 
+
   useEffect(() => {
+    setLoading(true); 
     axios
       .get(`${productUrl}/${productId}`)
       .then((res) => {
         setProduct(res.data);
-       
+        setLoading(false);
         setError(null);
       })
       .catch((err) => {
         console.error(err);
-      
+        setError("Failed to fetch product.");
+        setLoading(false); 
       });
   }, [productId]);
-console.log(product);
+
   return (
     <LayOut>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {product ? (
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <div className="text-red-500 text-center p-4">{error}</div>
+      ) : (
         <ProductCard
           product={product}
           flex={true}
           renderDesc={true}
           renderAdd={true}
         />
-      ) : (
-        <p>Loading product details...</p>
       )}
     </LayOut>
   );
 };
 
 export default ProductDetail;
+
