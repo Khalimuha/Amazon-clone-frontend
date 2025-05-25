@@ -27,12 +27,13 @@ const ProductDetail = () => {
 console.log(product);
   return (
     <LayOut>
-      
       {error && <p style={{ color: "red" }}>{error}</p>}
       {product ? (
-        <ProductCard product={product}
-        flex={true} 
-          renderDesc = {true}
+        <ProductCard
+          product={product}
+          flex={true}
+          renderDesc={true}
+          renderAdd={true}
         />
       ) : (
         <p>Loading product details...</p>

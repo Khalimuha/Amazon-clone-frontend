@@ -12,7 +12,7 @@ const Header = () => {
   console.log(basket.length);
 
   return (
-    <section section className= {classes.header_sticky}>
+    <section section className= {classes.sticky}>
       <section>
         <div className={classes.header_container}>
           <div className={classes.logo_container}> 

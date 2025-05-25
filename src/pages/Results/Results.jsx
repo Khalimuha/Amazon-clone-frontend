@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios"
 import { productUrl} from '../../Api/endPoints';
 import ProductCard from './../../Components/Product/ProductCard';
+import { FaLess } from 'react-icons/fa';
 
 
 const Results = () => {
@@ -36,6 +37,7 @@ const Results = () => {
           {Results?.map((product)=>(
             <ProductCard key={product.id}
              renderAdd ={true} 
+             renderDesc={false}
              product={product}
              />
           ))}

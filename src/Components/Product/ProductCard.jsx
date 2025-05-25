@@ -8,7 +8,7 @@ import { Type } from './../../Utility/action.type';
 
 
 
-function ProductCard({ product, flex, renderDesc }) {
+function ProductCard({ product, flex, renderDesc, renderAdd }) {
   if (!product) return null; // guard clause to prevent runtime error
 
   const { image, title, id, rating, price, description } = product;
@@ -46,7 +46,10 @@ function ProductCard({ product, flex, renderDesc }) {
         <div>
           <CurrencyFormat amount={price} />
         </div>
-        <button className={classes.button} onClick={addToCart}>Add to Cart</button>
+        {
+          renderAdd && <button className={classes.button} onClick={addToCart}>Add to Cart</button>
+        }
+       
       </div>
     </div>
   );
