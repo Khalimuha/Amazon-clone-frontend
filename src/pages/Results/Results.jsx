@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import classes from "./Results.module.css";
 import LayOut from "./../../Components/LayOut/LayOut";
@@ -14,7 +13,7 @@ const Results = () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    setLoading(true); 
+    setLoading(true);
     axios
       .get(`${productUrl}/category/${categoryName}`)
       .then((res) => {
@@ -25,13 +24,14 @@ const Results = () => {
         console.log(err);
         setLoading(false);
       });
-  }, [categoryName]); // ✅ Added dependency
+  }, [categoryName]);
 
   return (
     <LayOut>
       <section>
         <h1 style={{ padding: "30px" }}>Results</h1>
-        <p style={{ padding: "30px" }}>Category / {categoryName}</p>
+        <p style={{ padding: "30px" }}>Category /{categoryName}</p>
+        <hr/>
         {loading ? (
           <Loader />
         ) : (

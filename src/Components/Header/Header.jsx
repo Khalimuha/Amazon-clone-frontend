@@ -1,21 +1,26 @@
 import React, { useContext } from "react";
 import classes from "./Header.module.css";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import LowerHeader from "./LowerHeader";
 import { DataContext } from "../DataProvider/DataProvider";
+import { auth } from "../../Utility/firebase/";
 
 const Header = () => {
-  const [{basket}, dispatch] = useContext(DataContext)
+  const [{ user, basket }, dispatch] = useContext(DataContext);
   console.log(basket.length);
 
+  const totlaItem = basket.reduce((amount, item) => {
+    return item.amount + amount;
+  }, 0);
+
   return (
-    <section section className= {classes.sticky}>
+    <section section className={classes.sticky}>
       <section>
         <div className={classes.header_container}>
-          <div className={classes.logo_container}> 
+          <div className={classes.logo_container}>
             {/* logo */}
             <Link to="/">
               <img
@@ -41,7 +46,7 @@ const Header = () => {
               <option value="">All</option>
             </select>
             <input type="text" name="" id="" placeholder="Search products" />
-            <FaSearch />
+            <FaSearch size={39} />
           </div>
           {/* order section  */}
           <div className={classes.order_container}>
@@ -57,12 +62,20 @@ const Header = () => {
               </select>
             </Link>
 
-            <Link to="/auth">
-              {" "}
-              <p> Sign in</p>
-              <span>
-                <option value="">Account & Lists</option>
-              </span>
+            <Link to={!user && "/auth"}>
+              <div>
+                {user ? (
+                  <>
+                    <p>Hello {user?.email?.split("@")[0]}</p>
+                    <span onClick={() => auth.signOut()}> Sign Out </span>
+                  </>
+                ) : (
+                  <>
+                    <p> Hello, Sign In</p>
+                    <span>Account & Lists </span>
+                  </>
+                )}
+              </div>
             </Link>
 
             {/* orders */}
@@ -72,7 +85,7 @@ const Header = () => {
             </Link>
             <Link to="./cart" className={classes.cart}>
               <BsCart3 size={35} />
-              <span>{basket.length}</span>
+              <span>{totlaItem}</span>
             </Link>
           </div>
         </div>

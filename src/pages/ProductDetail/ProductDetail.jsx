@@ -12,7 +12,7 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
-  const [error, setError] = useState(null); 
+  
 
   useEffect(() => {
     setLoading(true); 
@@ -34,19 +34,20 @@ const ProductDetail = () => {
     <LayOut>
       {loading ? (
         <Loader />
-      ) : error ? (
-        <div className="text-red-500 text-center p-4">{error}</div>
-      ) : (
-        <ProductCard
+      ) : ( <ProductCard
           product={product}
           flex={true}
           renderDesc={true}
           renderAdd={true}
         />
       )}
+      
     </LayOut>
   );
 };
 
+
 export default ProductDetail;
+
+
 

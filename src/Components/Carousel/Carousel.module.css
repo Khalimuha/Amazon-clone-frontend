@@ -1,7 +1,7 @@
 .hero_img{
     position: relative;
 }
-.hero_img:before{
+.hero_img::before{
     content: "";
     position: absolute;
     bottom: 8px;

@@ -1,6 +1,8 @@
 import { Type } from "./action.type";
+
 export const initializeState = {
-  basket: []
+  basket: [],
+  user: null
 };
 
 export const reducer = (state, action) => {
@@ -28,21 +30,29 @@ export const reducer = (state, action) => {
         };
       }
 
-      case Type.REMOVE_FROM_BASKET:
-      const index = state.basket.findIndex(item=>item.id===action.id)
-      let newBasket = [...state.basket]
+    case Type.REMOVE_FROM_BASKET:
+      const index = state.basket.findIndex((item) => item.id === action.id);
+      let newBasket = [...state.basket];
 
-      if(index>=0){
-        if(newBasket[index].amount > 1){
-          newBasket[index]= {...newBasket[index],amount:newBasket[index].amount-1}
-        } else{
-          newBasket.splice(index,1)
+      if (index >= 0) {
+        if (newBasket[index].amount > 1) {
+          newBasket[index] = {
+            ...newBasket[index],
+            amount: newBasket[index].amount - 1
+          };
+        } else {
+          newBasket.splice(index, 1);
         }
       }
-  return {
-    ...state,
-    basket:newBasket
-  }
+      return {
+        ...state,
+        basket: newBasket
+      };
+    case Type.SET_USER:
+      return {
+        ...state,
+        user: action.user
+      };
 
     default:
       return state;

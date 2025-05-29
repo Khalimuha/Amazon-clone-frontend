@@ -1,5 +1,5 @@
 .category {
-  height: 350px;
+  height: 300px;
   width: 280px;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -32,7 +32,5 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
-  column-gap: 30px;
-  /* margin-right: 5%; */
-  /* margin-left:5% ; */
+  column-gap: 25px;
 }
