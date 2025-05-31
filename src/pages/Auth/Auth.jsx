@@ -23,7 +23,7 @@ const Auth = () => {
   const navigate = useNavigate();
 
   console.log(email, password);
-  // console.log(user);
+  console.log(user);
 
   const authHandler = async (e) => {
     e.preventDefault();

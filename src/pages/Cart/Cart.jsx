@@ -1,5 +1,6 @@
 import React from "react";
 import "./Cart.module.css";
+// import Payment from "../Payment/Payment.jsx";
 import LayOut from "../../Components/LayOut/LayOut";
 import { useContext } from "react";
 import { DataContext } from "../../Components/DataProvider/DataProvider";
@@ -7,30 +8,30 @@ import ProductCard from "./../../Components/Product/ProductCard";
 import CurrencyFormat from "../../Components/CurrencyFormat/CurrencyFormat";
 import { Link } from "react-router-dom";
 import classes from "./Cart.module.css";
-import {Type} from '../../Utility/action.type.js'
+import { Type } from "../../Utility/action.type.js";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 
 const Cart = () => {
-  const [{ basket, user }, dispatch] = useContext(DataContext);
-  
+  const [{ basket }, dispatch] = useContext(DataContext);
+
   const total = basket.reduce((sum, item) => sum + item.price * item.amount, 0);
 
   // console.log("Cart component loaded");
   // console.log("Basket:", basket);
 
-  const increment = (item)=>{
+  const increment = (item) => {
     dispatch({
-      type:Type.ADD_TO_BASKET,
+      type: Type.ADD_TO_BASKET,
       item
-    })
-  }
-  const decrement = (id)=>{
+    });
+  };
+  const decrement = (id) => {
     dispatch({
-      type : Type.REMOVE_FROM_BASKET,
+      type: Type.REMOVE_FROM_BASKET,
       id
-    })
-  }
+    });
+  };
   return (
     <LayOut>
       <section className={classes.container}>
@@ -81,7 +82,7 @@ const Cart = () => {
               <input type="checkbox" />
               <small>This order contains a gift</small>
             </span>
-            <Link to="/payments">Continue to checkout</Link>
+            <Link to="/Payment">Continue to checkout</Link>
           </div>
         )}
       </section>

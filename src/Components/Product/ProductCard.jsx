@@ -7,8 +7,7 @@ import { DataContext } from "../DataProvider/DataProvider";
 import { Type } from "./../../Utility/action.type";
 
 function ProductCard({ product, flex, renderDesc, renderAdd }) {
-  // if (!product) return null; // guard clause to prevent runtime error
-
+  
   const { image, title, id, rating, price, description } = product;
 
   const [state, dispatch] = useContext(DataContext);  // usecontext 

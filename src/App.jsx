@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import "./App.css";
 import Routing from "./Routing.jsx";
-import { DataContext } from "./Components/DataProvider/DataProvider.jsx";
+import { DataContext, DataProvider } from "./Components/DataProvider/DataProvider.jsx";
 import { Type } from "./Utility/action.type.js";
 import { auth } from "./Utility/firebase.js";
 
@@ -11,7 +11,8 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        // console.log(authUser);
+        console.log(authUser);
+
         dispatch({
           type: Type.SET_USER,
           user: authUser
@@ -23,7 +24,7 @@ function App() {
         });
       }
     });
-  }, []);
+  },[]);
 
   return (
     <>
