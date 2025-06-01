@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import classes from "./signup.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../Utility/firebase";
 import { ClipLoader } from "react-spinners";
 import {
@@ -21,9 +21,9 @@ const Auth = () => {
 
   const [{ user }, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
+  const navStateData = useLocation();
 
-  console.log(email, password);
-  console.log(user);
+  console.log("useLocation output:", navStateData);
 
   const authHandler = async (e) => {
     e.preventDefault();
@@ -45,8 +45,7 @@ const Auth = () => {
         });
 
         setLoading({ ...setLoading, signIn: false });
-
-        navigate("/");
+        navigate(navStateData?.state?.redirect || "/");
       } catch (err) {
         setError(err.message);
         setLoading({ ...setLoading, signIn: false });
@@ -62,7 +61,8 @@ const Auth = () => {
           password
         );
 
-        setLoading({ ...setLoading, signUp: true });
+        setLoading({ ...setLoading, signUp: false });
+        navigate(navStateData?.state?.redirect || "/");
         dispatch({
           type: Type.SET_USER,
           user: userInfo.user
@@ -90,6 +90,18 @@ const Auth = () => {
       {/* form */}
       <div className={classes.login_container}>
         <h1>Sign In</h1>
+        {navStateData?.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold"
+            }}
+          >
+            {navStateData?.state?.msg}
+          </small>
+        )}
         <form action="">
           <div>
             <label htmlFor="email">E-mail</label>
@@ -139,7 +151,7 @@ const Auth = () => {
             <ClipLoader color="#000" size={15} />
           ) : (
             " Create your Amazon Account"
-          )} 
+          )}
         </button>
         {error && (
           <small style={{ paddingTop: "5px", color: "red" }}>{error}</small>

@@ -70,7 +70,7 @@ const Payment = () => {
         });
 
       setProcessing(false);
-      navigate("/orders", { state: { msg: "You have placed new Order" } });
+      navigate("/auth", { state: { msg: "You have to login to pay" } });
     } catch (error) {
 
       console.log(error);

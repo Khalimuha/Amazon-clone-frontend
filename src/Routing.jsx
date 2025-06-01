@@ -9,6 +9,7 @@ import Results from "./pages/Results/Results";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
 const stripePromise = loadStripe(
   "pk_test_51RU2dq2LUYQJ5R2utCP3vYt2cVcbOYilWioTRUOxQyEuqhEhOTiFOm2z0F9PkjEYK5ETZPzbYfKj6IQC4z2El3ZH00bkWpx7U7"
@@ -22,13 +23,26 @@ function Routing() {
         <Route
           path="/payment"
           element={
-            <Elements stripe={stripePromise}>
-              <Payment />
-            </Elements>
+            <ProtectedRoute
+              msg={"You must log in to pay"}
+              redirect={"/payment"}
+            >
+              <Elements stripe={stripePromise}>
+                <Payment />
+              </Elements>   
+            </ProtectedRoute>
           }
         />
 
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/orders" element={
+          
+          <ProtectedRoute
+              msg={"You must log in to access your orders"}
+              redirect={"/orders"}
+            > 
+                <Orders />   
+            </ProtectedRoute>
+           } />
         <Route path="/category/:categoryName" element={<Results />} />
         <Route path="/products/:productId" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
