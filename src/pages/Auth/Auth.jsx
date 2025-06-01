@@ -139,7 +139,7 @@ const Auth = () => {
             <ClipLoader color="#000" size={15} />
           ) : (
             " Create your Amazon Account"
-          )}
+          )} 
         </button>
         {error && (
           <small style={{ paddingTop: "5px", color: "red" }}>{error}</small>
