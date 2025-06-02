@@ -139,7 +139,7 @@ const Auth = () => {
           Internet-Based Ads Notice.
         </p>
 
-        {/* Create acount */}
+        {/* Create account */}
 
         <button
           name="signup"
