@@ -60,7 +60,7 @@ const Payment = () => {
       //step 3. after the confirmation...> order firebase database save, clear basket
 
       await db
-        .collection("user")
+        .collection("users")
         .doc(user.uid)
         .collection("orders")
         .doc(paymentIntent.id)
@@ -69,11 +69,12 @@ const Payment = () => {
           amount: paymentIntent.amount,
           created: paymentIntent.created
         });
+
       //empty the basket
       dispatch({ type: Type.EMPTY_BASKET });
 
       setProcessing(false);
-      navigate("/auth", { state: { msg: "You have to login to pay" } });
+      navigate("/orders", { state: { msg: "You have to login to pay" } });
     } catch (error) {
       console.log(error);
       setProcessing(false);
@@ -136,7 +137,7 @@ const Payment = () => {
                   <button type="submit">
                     {processing ? (
                       <div className={classes.loading}>
-                        <ClipLoader color="gray" size={15} />
+                        <ClipLoader color="green" size={13} />
                         <p>Please wait ... </p>
                       </div>
                     ) : (
