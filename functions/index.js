@@ -73,5 +73,5 @@ app.post("/payment/create", async (req, res) => {
   }
 });
 
-exports.api = onRequest(app); // 👈 important for Firebase
+exports.api = onRequest(app); 
 

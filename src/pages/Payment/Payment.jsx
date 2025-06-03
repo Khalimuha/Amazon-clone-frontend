@@ -14,13 +14,13 @@ import { Type } from "../../Utility/action.type.js";
 
 const Payment = () => {
   const [{ user, basket }, dispatch] = useContext(DataContext);
-  console.log(user);
 
   const totalItem = basket?.reduce((amount, item) => {
     return item.amount + amount;
   }, 0);
 
-  const total = basket.reduce((sum, item) => sum + item.price * item.amount, 0);
+  const total =
+    basket.reduce((sum, item) => sum + item.price * item.amount, 0) ?? 0;
 
   const [cardError, setCardError] = useState(null);
   const [processing, setProcessing] = useState(false);
@@ -48,7 +48,7 @@ const Payment = () => {
       // console.log(response.data);
 
       const clientSecret = response.data?.clientSecret;
-
+      console.log(clientSecret);
       //step 2. client side (react confirmation)
       const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -74,7 +74,8 @@ const Payment = () => {
       dispatch({ type: Type.EMPTY_BASKET });
 
       setProcessing(false);
-      navigate("/orders", { state: { msg: "You have to login to pay" } });
+      console.log("Payment success:", paymentIntent);
+      navigate("/orders", { state: { msg: "You have placed new Order" } });
     } catch (error) {
       console.log(error);
       setProcessing(false);
@@ -104,8 +105,12 @@ const Payment = () => {
         <div className={classes.payment_flex}>
           <h3> Review items and delivery</h3>
           <div>
-            {basket?.map((item) => (
+            {/* {basket?.map((item) => (
               <ProductCard product={item} flex={true} />
+            ))} */}
+
+            {basket?.map((item) => (
+              <ProductCard key={item.id} product={item} flex={true} />
             ))}
           </div>
         </div>
